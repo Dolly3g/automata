@@ -10,24 +10,6 @@ var dfa_generator = function(tuple){
 
 		return tuple.final_states.contains(state);
 	}
-}
-
-var tuple = {
-	states: ["q1", "q2"],
-	alphabets: ["1", "0"],
-	transitions: {
-		"q1": {"1" : "q2", "0" : "q1"},
-		"q2": {"1" : "q2", "0" : "q1"}
-	},
-	initial_state: "q1",
-	final_states: ["q2"]
 };
 
-var dfa = dfa_generator(tuple);
-
-var input = process.argv[2];
-
-if(dfa(input))
-	console.log("Passed");
-else
-	console.log("Failed");
+exports.dfa_generator = dfa_generator;

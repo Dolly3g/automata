@@ -15,14 +15,14 @@ Array.prototype.intersects = function(array){
 var nfa_generator = function(tuple){
 	
 	var getEpsilonTransitions = function(state){
-		var epsilonTransitions = tuple.transitions[state]["E"] || [];
+		var epsilonTransitions = tuple.transitions[state]["e"] || [];
 		return epsilonTransitions.concat(epsilonTransitions.map(getEpsilonTransitions)).flatten();
 	}
 
 	var stateReducer = function(states, alphabet){
 		
 		var getTransitionsFor = function(state) {
-			var alphabetTransitions = tuple.transitions[state][alphabet] || [];
+			var alphabetTransitions = tuple.transitions[state] && (tuple.transitions[state][alphabet] || []);
 			var epsilonTransitions = getEpsilonTransitions(state);
 			var epsilonTransitionsFromAlphabetTransitions = alphabetTransitions.map(getEpsilonTransitions)
 			var allEpsilonTransitions = epsilonTransitions.map(getTransitionsFor).concat(epsilonTransitionsFromAlphabetTransitions);
@@ -34,7 +34,7 @@ var nfa_generator = function(tuple){
 
 
 	return function(input){
-		var outputStates = input.split("").reduce(stateReducer, [tuple.initial_state])
+		var outputStates = (input || "e").split("").reduce(stateReducer, [tuple.initial_state])
 		return outputStates.intersects(tuple.final_states).length > 0;
 	};
 }

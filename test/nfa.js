@@ -26,9 +26,9 @@ describe("Nfa Generator", function(){
 	it("Length Divisible by 2 or 3", function(){
 		var tuple = {
 			states: ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8"],
-			alphabets: ["0", "E"],
+			alphabets: ["0", "e"],
 			transitions: {
-				"q1": {"E" : ["q2", "q5"]},
+				"q1": {"e" : ["q2", "q5"]},
 				"q2": {"0" : ["q3"]},
 				"q3": {"0" : ["q4"]},
 				"q4": {"0": ["q3"]},
@@ -50,12 +50,12 @@ describe("Nfa Generator", function(){
 	it("Ends with 0", function(){
 		var tuple = {
 			states : ["q1","q2","q3","q4"],
-			alphabets : ["0","1", "E"],
+			alphabets : ["0","1", "e"],
 			initial_state : "q1",
 			final_states : ["q4"],
 			transitions : {
-			  "q1" : {"E":["q2"]},
-			  "q2" : {"E":["q3"]},
+			  "q1" : {"e":["q2"]},
+			  "q2" : {"e":["q3"]},
 			  "q3" : {"0":["q3","q4"],"1":["q3"]},
 			  "q4" : {}
 			}
@@ -88,11 +88,11 @@ describe("Nfa Generator", function(){
 	it("Odd number of zeros or odd number of ones", function(){
 		var tuple = {
 			states : ["q1","q2","q3","q4","q5"],
-			alphabets : ["0","1", "E"],
+			alphabets : ["0","1", "e"],
 			initial_state : "q1",
 			final_states : ["q4","q5"],
 			transitions : {
-			  "q1" : {"E":["q2","q3"]},
+			  "q1" : {"e":["q2","q3"]},
 			  "q2" : {"1":["q4"]},
 			  "q3" : {"0":["q5"]},
 			  "q4" : {"1":["q2"]},
@@ -110,18 +110,18 @@ describe("Nfa Generator", function(){
 	it("Length of 2 or 3", function(){
 		var tuple = {
 			states : ["q1","q2","q3","q4","q5", "q6", "q7", "q8", "q9"],
-			alphabets : ["0","1", "E"],
+			alphabets : ["0","1", "e"],
 			initial_state : "q1",
 			final_states : ["q4"],
 			transitions:{
-				"q1":{'E':["q2","q5"]},
+				"q1":{'e':["q2","q5"]},
 				"q2":{"0":["q3"]},
 				"q3":{"0":["q4"]},
 				"q4": {},
 				"q5":{"0":["q6"]},
 				"q6":{"0":["q7"]},
-				"q7":{"E":["q8"]},
-				"q8":{"E":["q9"]},
+				"q7":{"e":["q8"]},
+				"q8":{"e":["q9"]},
 				"q9":{"0":["q4"]}
 			}
 		}
@@ -135,19 +135,19 @@ describe("Nfa Generator", function(){
 	it("Last epsilon", function(){
 		var tuple = {
 			states : ["q1","q2","q3","q4","q5", "q6", "q7", "q8", "q9"],
-			alphabets : ["0","1", "E"],
+			alphabets : ["0","1", "e"],
 			initial_state : "q1",
 			final_states : ["q4"],
 			transitions:{
-  				"q1":{'E':["q2","q5"]},
+  				"q1":{'e':["q2","q5"]},
   				"q2":{"0":["q3"]},
   				"q3":{"0":["q4"]},
         		"q4":{},
   				"q5":{"0":["q6"]},
   				"q6":{"0":["q7"]},
   				"q7":{"0":["q8"]},
-  				"q8":{'E':["q9"]},
-  				"q9":{'E':["q4"]}
+  				"q8":{'e':["q9"]},
+  				"q9":{'e':["q4"]}
   			}
 		}
 		var nfa = nfa_generator(tuple);

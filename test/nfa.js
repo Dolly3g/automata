@@ -156,6 +156,21 @@ describe("Nfa Generator", function(){
 		assert.isFalse(nfa("0"));
 		assert.isFalse(nfa("0000"));
 	})
+
+	it("Epsilon loop", function(){
+		var tuple = {
+			states : ["q1","q2"],
+			alphabets : ["0","1", "e"],
+			initial_state : "q1",
+			final_states : ["q2"],
+			transitions:{
+  				"q1":{'e':["q1"], '0': ["q2"]}
+  			}
+		};
+
+		var nfa = nfa_generator(tuple);
+		assert.isTrue(nfa("0"));
+		assert.isTrue(nfa(""));
+		assert.isFalse(nfa("00"));
+	})
 })
-
-

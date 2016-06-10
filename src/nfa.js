@@ -15,6 +15,7 @@ Array.prototype.intersects = function(array){
 var nfa_generator = function(tuple){
 	
 	var getEpsilonTransitions = function(state){
+		if(!tuple.transitions[state]) return [];
 		var epsilonTransitions = tuple.transitions[state]["e"] || [];
 		return epsilonTransitions.concat(epsilonTransitions.map(getEpsilonTransitions)).flatten();
 	}
@@ -22,7 +23,8 @@ var nfa_generator = function(tuple){
 	var stateReducer = function(states, alphabet){
 		
 		var getTransitionsFor = function(state) {
-			var alphabetTransitions = tuple.transitions[state] && (tuple.transitions[state][alphabet] || []);
+			if(!tuple.transitions[state]) return [];
+			var alphabetTransitions = tuple.transitions[state][alphabet] || [];
 			var epsilonTransitions = getEpsilonTransitions(state);
 			var epsilonTransitionsFromAlphabetTransitions = alphabetTransitions.map(getEpsilonTransitions)
 			var allEpsilonTransitions = epsilonTransitions.map(getTransitionsFor).concat(epsilonTransitionsFromAlphabetTransitions);
